@@ -5,8 +5,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.crypto.*;
-import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
@@ -26,21 +28,21 @@ public class AESController {
 
     private String key;
 
+    private byte[] pkey;
+
     @GetMapping
     public String getKey() throws NoSuchAlgorithmException {
-        KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
-        keyGenerator.init(256);
-        SecretKey secretKey = keyGenerator.generateKey();
-        key = new String(Base64.getEncoder().encode(secretKey.getEncoded()));
+        key = "1111wwww2222uuuu";
         return key;
     }
 
 
     @PostMapping
-    public String decryp(String password,String iv) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, InvalidAlgorithmParameterException {
-        SecretKeySpec secretKeySpec = new SecretKeySpec(Base64.getDecoder().decode(key.getBytes()), "AES");
+    public String decryp(String password) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, InvalidAlgorithmParameterException {
+        //key为秘钥，必须为16位
+        SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(), "AES");
         Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
-        cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, new IvParameterSpec(Base64.getDecoder().decode(iv.getBytes())));
+        cipher.init(Cipher.DECRYPT_MODE, secretKeySpec);
         byte[] data = cipher.doFinal(Base64.getDecoder().decode(password.getBytes()));
         return new String(data);
     }
