@@ -18,6 +18,7 @@ import java.util.Base64;
  * @version 1.0
  * *
  */
+@SuppressWarnings("DuplicatedCode")
 @Slf4j
 public class RSAEncryption extends AbstractEncryption {
 
