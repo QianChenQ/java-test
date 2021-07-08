@@ -15,12 +15,12 @@ public class SimpleProducer {
 
     public static void main(String[] arg) throws IOException, TimeoutException {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
+        factory.setHost("192.168.44.129");
         try (Connection connection = factory.newConnection();
              Channel channel = connection.createChannel()) {
             channel.queueDeclare("simple_queue", false, false, false, null);
             String message = "this is new Message";
-            //channel.basicPublish("",);
+            channel.basicPublish("", "simple_queue", null, message.getBytes());
         }
     }
 }

@@ -1,13 +1,13 @@
-package chenqian.site.commontest;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
-@SpringBootTest
-class CommonTestApplicationTests {
-
-    @Test
-    void contextLoads() {
-    }
-
-}
+//package chenqian.site.commontest;
+//
+//import org.junit.jupiter.api.Test;
+//import org.springframework.boot.test.context.SpringBootTest;
+//
+//@SpringBootTest
+//class CommonTestApplicationTests {
+//
+//    @Test
+//    void contextLoads() {
+//    }
+//
+//}
